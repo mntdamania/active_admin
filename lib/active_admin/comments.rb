@@ -21,7 +21,7 @@ ActiveAdmin.after_load do |app|
   app.namespaces.values.each do |namespace|
     if namespace.comments?
       namespace.register ActiveAdmin::Comment, :as => "Comment" do
-        actions :index, :show, :create
+        actions :show, :create
 
         # Ensure filters are turned on
         config.filters = true
@@ -75,6 +75,7 @@ ActiveAdmin.after_load do |app|
           column(I18n.t('active_admin.comments.resource')){|comment| auto_link(comment.resource) }
           column(I18n.t('active_admin.comments.author')){|comment| auto_link(comment.author) }
           column(I18n.t('active_admin.comments.body')){|comment| comment.body }
+          default_actions
         end
       end
     end

@@ -45,6 +45,10 @@ module ActiveAdmin
             div :class => "active_admin_comment_body" do
               simple_format(comment.body)
             end
+            div :class => "active_admin_comment_meta" do
+              span(link_to "Edit", edit_admin_active_admin_comment_path(comment))
+              span(link_to "Delete", admin_active_admin_comment_path(comment), :method => "delete", :confirm => "Are you sure you want to delete this comment?")
+            end
             div :style => "clear:both;"
           end
         end
@@ -69,6 +73,7 @@ module ActiveAdmin
               form.input :resource_type, :input_html => { :value => ActiveAdmin::Comment.resource_type(@record) }, :as => :hidden
               form.input :resource_id, :input_html => { :value => @record.id }, :as => :hidden
               form.input :body, :input_html => { :size => "80x8" }, :label => false
+              form.input :visibility, :as => "select", :collection => ["All", "Customer", "Sales Person"]
             end
             form.actions do
               form.action :submit, :label => I18n.t('active_admin.comments.add'), :button_html => { :value => I18n.t('active_admin.comments.add') }
